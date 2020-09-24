@@ -5,9 +5,9 @@ const sendError = require("../util/error")
 
 module.exports = {
   info: {
-    name: "play",
-    description: "To play songs :D",
-    usage: "<song_name>",
+    name: "Play",
+    description: "Plays Songs",
+    usage: "",
     aliases: ["p"],
   },
 
@@ -42,7 +42,7 @@ module.exports = {
     if (serverQueue) {
       serverQueue.songs.push(song);
       let thing = new MessageEmbed()
-      .setAuthor("Song has been added to queue", "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+      .setAuthor("Song has been added to queue", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
       .setThumbnail(song.img)
       .setColor("YELLOW")
       .addField("Name", song.title, true)
@@ -66,7 +66,7 @@ module.exports = {
     const play = async (song) => {
       const queue = message.client.queue.get(message.guild.id);
       if (!song) {
-        sendError("Leaving the voice channel because I think there are no songs in the queue. If you like the bot stay 24/7 in voice channel go to `commands/play.js` and remove the line number 61\n\nThank you for using my code! [GitHub](https://github.com/SudhanPlayz/Discord-MusicBot)", message.channel)
+        sendError("Left Voice Chat)", message.channel)
         queue.voiceChannel.leave();//If you want your bot stay in vc 24/7 remove this line :D
         message.client.queue.delete(message.guild.id);
         return;
@@ -81,7 +81,7 @@ module.exports = {
         .on("error", (error) => console.error(error));
       dispatcher.setVolumeLogarithmic(queue.volume / 5);
       let thing = new MessageEmbed()
-      .setAuthor("Started Playing Music!", "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+      .setAuthor("Started Playing Music!", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
       .setThumbnail(song.img)
       .setColor("BLUE")
       .addField("Name", song.title, true)
