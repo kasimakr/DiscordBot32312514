@@ -4,7 +4,7 @@ const sendError = require("../util/error");
 module.exports = {
   info: {
     name: "resume",
-    description: "To resume the paused music",
+    description: "Resumes Music That Was Paused",
     usage: "",
     aliases: [],
   },
@@ -17,7 +17,7 @@ module.exports = {
       let xd = new MessageEmbed()
       .setDescription("▶ Resumed the music for you!")
       .setColor("YELLOW")
-      .setAuthor("Music has been Resumed!", "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+      .setAuthor("Music has been Resumed!", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
       return message.channel.send(xd);
     }
     return sendError("There is nothing playing in this server.", message.channel);
