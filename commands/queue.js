@@ -3,8 +3,8 @@ const sendError = require("../util/error");
 
 module.exports = {
   info: {
-    name: "queue",
-    description: "To show the server songs queue",
+    name: "Queue",
+    description: "Shows The List Of Songs To Play",
     usage: "",
     aliases: ["q", "list", "songlist", "song-list"],
   },
@@ -14,7 +14,7 @@ module.exports = {
     if (!serverQueue) return sendError("There is nothing playing in this server.", message.channel);
 
     let queue = new MessageEmbed()
-    .setAuthor("Server Songs Queue", "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+    .setAuthor("Server Songs Queue", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
     .setColor("BLUE")
     .addField("Now Playing", serverQueue.songs[0].title, true)
     .addField("Text Channel", serverQueue.textChannel, true)
