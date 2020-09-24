@@ -3,7 +3,7 @@ const sendError = require("../util/error");
 module.exports = {
   info: {
     name: "skip",
-    description: "To skip the current music",
+    description: "Skips Current Song To Next Song In Queue",
     usage: "",
     aliases: ["s"],
   },
@@ -14,6 +14,5 @@ module.exports = {
     const serverQueue = message.client.queue.get(message.guild.id);
     if (!serverQueue)return sendError("There is nothing playing that I could skip for you.", message.channel);
     serverQueue.connection.dispatcher.end("Skiped the music");
-    message.react("✅")
   },
 };
