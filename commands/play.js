@@ -6,28 +6,28 @@ const sendError = require("../util/error")
 module.exports = {
   info: {
     name: "Play",
-    description: "Plays Songs",
+    description: "Plays songs",
     usage: "",
     aliases: ["p"],
   },
 
   run: async function (client, message, args) {
     const channel = message.member.voice.channel;
-    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to play music!", message.channel);
+    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to play music!", message.channel, message.react('759498707774734407'));
 
     const permissions = channel.permissionsFor(message.client.user);
-    if (!permissions.has("CONNECT"))return sendError("I cannot connect to your voice channel, make sure I have the proper permissions!", message.channel);
-    if (!permissions.has("SPEAK"))return sendError("I cannot speak in this voice channel, make sure I have the proper permissions!", message.channel);
+    if (!permissions.has("CONNECT"))return sendError("I cannot connect to your voice channel, make sure I have the proper permissions!", message.channel, message.react('759498707774734407'));
+    if (!permissions.has("SPEAK"))return sendError("I cannot speak in this voice channel, make sure I have the proper permissions!", message.channel, message.react('759498707774734407'));
 
     var searchString = args.join(" ");
-    if (!searchString)return sendError("You didn't poivide want i want to play", message.channel);
+    if (!searchString)return sendError("You didn't poivide want i want to play", message.channel, message.react('759498707774734407'));
 
     var serverQueue = message.client.queue.get(message.guild.id);
 
     var searched = await yts.search(searchString)
-    if(searched.videos.length === 0)return sendError("Looks like i was unable to find the song on YouTube", message.channel)
+    if(searched.videos.length === 0)return sendError("Looks like i was unable to find the song on YouTube", message.channel, message.react('759498707774734407'))
     var songInfo = searched.videos[0]
-
+    
     const song = {
       id: songInfo.videoId,
       title: Util.escapeMarkdown(songInfo.title),
@@ -40,15 +40,14 @@ module.exports = {
     };
 
     if (serverQueue) {
+      message.react('759498631069171742')
       serverQueue.songs.push(song);
       let thing = new MessageEmbed()
-      .setAuthor("Song has been added to queue", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
+      .setAuthor("Up soon", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
       .setThumbnail(song.img)
-      .setColor("YELLOW")
-      .addField("Name", song.title, true)
-      .addField("Duration", song.duration, true)
-      .addField("Requested by", song.req.tag, true)
-      .setFooter(`Views: ${song.views} | ${song.ago}`)
+      .setColor("PURPLE")
+      .addField("Song:", song.title, true)
+      .setFooter(`Requested By: ${song.req.tag}  Uploaded: ${song.ago}  Duration: ${song.duration}`)
       return message.channel.send(thing);
     }
 
@@ -66,7 +65,7 @@ module.exports = {
     const play = async (song) => {
       const queue = message.client.queue.get(message.guild.id);
       if (!song) {
-        sendError("Left Voice Chat)", message.channel)
+        sendError("Left Voice Chat", message.channel)
         queue.voiceChannel.leave();//If you want your bot stay in vc 24/7 remove this line :D
         message.client.queue.delete(message.guild.id);
         return;
@@ -81,26 +80,25 @@ module.exports = {
         .on("error", (error) => console.error(error));
       dispatcher.setVolumeLogarithmic(queue.volume / 5);
       let thing = new MessageEmbed()
-      .setAuthor("Started Playing Music!", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
+      .setAuthor("Music Starting", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
       .setThumbnail(song.img)
       .setColor("BLUE")
-      .addField("Name", song.title, true)
-      .addField("Duration", song.duration, true)
-      .addField("Requested by", song.req.tag, true)
-      .setFooter(`Views: ${song.views} | ${song.ago}`)
+      .addField("Song:", song.title, true)
+      .setFooter(`Requested By: ${song.req.tag}  Uploaded: ${song.ago}  Duration: ${song.duration}`)
       queue.textChannel.send(thing);
+      message.react('759498631069171742')
     };
 
     try {
       const connection = await channel.join();
       queueConstruct.connection = connection;
-      channel.guild.voice.setSelfDeaf(true)
+      channel.guild.voice.setSelfDeaf(false)
       play(queueConstruct.songs[0]);
     } catch (error) {
       console.error(`I could not join the voice channel: ${error}`);
       message.client.queue.delete(message.guild.id);
       await channel.leave();
-      return sendError(`I could not join the voice channel: ${error}`, message.channel);
+      return sendError(`I could not join the voice channel: ${error}`, message.channel, message.react('759498707774734407'));
     }
   }
 };
