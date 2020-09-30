@@ -3,8 +3,8 @@ const sendError = require("../util/error");
 
 module.exports = {
   info: {
-    name: "resume",
-    description: "Resumes Music That Was Paused",
+    name: "Resume",
+    description: "Resumes any paused music",
     usage: "",
     aliases: [],
   },
@@ -20,6 +20,6 @@ module.exports = {
       .setAuthor("Music has been Resumed!", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
       return message.channel.send(xd);
     }
-    return sendError("There is nothing playing in this server.", message.channel);
+    return sendError("There is nothing playing in this server.", message.channel, message.channel, message.react('759498707774734407'));
   },
 };
