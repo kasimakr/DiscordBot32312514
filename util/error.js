@@ -8,7 +8,8 @@ const { MessageEmbed } = require("discord.js")
 module.exports = async (text, channel) => {
     let embed = new MessageEmbed()
     .setColor("RED")
-    .setDescription(text)
-    .setFooter("Oops something went wrong :(")
+    .setAuthor("NANI", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/KasimAkrSad.png")
+    .setDescription(` Aw Man, ${text}`)
+    .setFooter("Start a support ticket if you have any issues!")
     await channel.send(embed)
 }
