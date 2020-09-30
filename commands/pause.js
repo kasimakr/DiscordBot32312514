@@ -3,10 +3,10 @@ const sendError = require("../util/error");
 
 module.exports = {
   info: {
-    name: "pause",
-    description: "To pause the current music in the server",
+    name: "Pause",
+    description: "Pauses any playing music",
     usage: "",
-    aliases: [""],
+    aliases: ["PauseMusic"],
   },
 
   run: async function (client, message, args) {
@@ -15,11 +15,11 @@ module.exports = {
       serverQueue.playing = false;
       serverQueue.connection.dispatcher.pause();
       let xd = new MessageEmbed()
-      .setDescription("⏸ Paused the music for you!")
+      .setDescription("Paused Music")
       .setColor("YELLOW")
-      .setAuthor("Music has been paused!", "https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/Music.gif")
+      .setAuthor("Music has been paused!", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
       return message.channel.send(xd);
     }
-    return sendError("There is nothing playing in this server.", message.channel);
+    return sendError("There is nothing playing in this server.", message.channel, message.react('759498707774734407'));
   },
 };
