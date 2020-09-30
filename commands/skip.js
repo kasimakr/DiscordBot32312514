@@ -1,20 +1,18 @@
-const { MessageEmbed } = require("discord.js");
 const sendError = require("../util/error");
 
 module.exports = {
   info: {
-    name: "stop",
-    description: "Stops All Music",
+    name: "Skip",
+    description: "Skips current song to next in queue",
     usage: "",
-    aliases: [],
+    aliases: ["s"],
   },
 
   run: async function (client, message, args) {
     const channel = message.member.voice.channel
-    if (!channel)return sendError("Join A God Dam Music Channel Then Try Again.", message.channel);
+    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to play music!", message.channel, message.react('759498707774734407'));
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue)return sendError("When Life Give You Lemons, You Make Guacomole. Your Not Listening To Music", message.channel);
-    serverQueue.songs = [];
-    serverQueue.connection.dispatcher.end("Stop the music");
+    if (!serverQueue)return sendError("There is nothing playing that I could skip for you.", message.channel, message.react('759498707774734407'));
+    serverQueue.connection.dispatcher.end("Skiped the music");
   },
 };
