@@ -4,27 +4,28 @@ const sendError = require("../util/error");
 module.exports = {
   info: {
     name: "Queue",
-    description: "Adds songs to the queue",
+    description: "Shows surrent and upcoming songs",
     usage: "",
     aliases: ["q", "list", "songlist", "song-list"],
   },
 
+  
   run: async function (client, message, args) {
     const serverQueue = message.client.queue.get(message.guild.id);
     if (!serverQueue) return sendError("There is nothing playing in this server.", message.channel, message.react('759498707774734407'));
-
-    let queue = new MessageEmbed()
-    .setAuthor("Server Songs Queue", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
+    
+    message.react('759498631069171742')
+    let embed = new MessageEmbed()
+    .setAuthor("Queue", "https://raw.githubusercontent.com/kasimakr/DiscordBot32312514/master/assets/Akrr.png")
     .setColor("BLUE")
-    .addField("Now Playing", serverQueue.songs[0].title, true)
-    .addField("Text Channel", serverQueue.textChannel, true)
-    .addField("Voice Channel", serverQueue.voiceChannel, true)
+    .addField("Current Song", serverQueue.songs[0].title, true)
+    .setThumbnail(serverQueue.songs[0].img, true)
+    .addField("Upcoming Songs")
     .setDescription(serverQueue.songs.map((song) => {
       if(song === serverQueue.songs[0])return
-      return `**-** ${song.title}`
+      return `${song.title}`
     }).join("\n"))
-    .setFooter("Currently Server Volume is "+serverQueue.volume)
-    if(serverQueue.songs.length === 1)queue.setDescription(`No songs to play next add songs by \`\`${client.config.prefix}play <song_name>\`\``)
-    message.channel.send(queue)
+    .setFooter("Version: 1.0.25")
+    message.channel.send(embed)
   },
 };
