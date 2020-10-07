@@ -3,7 +3,7 @@ const sendError = require("../util/error");
 module.exports = {
   info: {
     name: "Loop",
-    description: "Loops current song",
+    description: "Repeats Song",
     usage: "",
     aliases: ["s"],
   },
