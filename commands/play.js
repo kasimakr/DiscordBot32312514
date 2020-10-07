@@ -13,19 +13,19 @@ module.exports = {
 
   run: async function (client, message, args) {
     const channel = message.member.voice.channel;
-    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to play music!", message.channel, message.react('759498707774734407'));
+    if (!channel)return sendError("Please join a voice chat and try again", message.channel, message.react('759498707774734407'));
 
     const permissions = channel.permissionsFor(message.client.user);
-    if (!permissions.has("CONNECT"))return sendError("I cannot connect to your voice channel, make sure I have the proper permissions!", message.channel, message.react('759498707774734407'));
-    if (!permissions.has("SPEAK"))return sendError("I cannot speak in this voice channel, make sure I have the proper permissions!", message.channel, message.react('759498707774734407'));
+    if (!permissions.has("CONNECT"))return sendError("Please give me permissions to play music.", message.channel, message.react('759498707774734407'));
+    if (!permissions.has("SPEAK"))return sendError("Please give me permissions to play music.", message.channel, message.react('759498707774734407'));
 
     var searchString = args.join(" ");
-    if (!searchString)return sendError("You didn't poivide want i want to play", message.channel, message.react('759498707774734407'));
+    if (!searchString)return sendError("Nothing to play", message.channel, message.react('759498707774734407'));
 
     var serverQueue = message.client.queue.get(message.guild.id);
 
     var searched = await yts.search(searchString)
-    if(searched.videos.length === 0)return sendError("Looks like i was unable to find the song on YouTube", message.channel, message.react('759498707774734407'))
+    if(searched.videos.length === 0)return sendError("Couldn't find song.", message.channel, message.react('759498707774734407'))
     var songInfo = searched.videos[0]
     
     const song = {
