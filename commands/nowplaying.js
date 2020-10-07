@@ -4,9 +4,9 @@ const sendError = require("../util/error")
 module.exports = {
   info: {
     name: "NowPlaying",
-    description: "Shows what music is play in the server",
+    description: "Shows current music playing",
     usage: "",
-    aliases: ["Now Playing"],
+    aliases: ["np","nowp"],
   },
 
   run: async function (client, message, args) {
