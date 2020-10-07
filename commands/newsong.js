@@ -6,26 +6,26 @@ const sendError = require("../util/error")
 module.exports = {
   info: {
     name: "NewSong",
-    description: "Adds new songs to the queue",
+    description: "Adds songs to the queue",
     usage: "",
     aliases: ["AS"],
   },
 
   run: async function (client, message, args) {
     const channel = message.member.voice.channel;
-    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to play music!", message.channel);
+    if (!channel)return sendError("Please join a voice chat and try again.", message.channel);
 
     const permissions = channel.permissionsFor(message.client.user);
-    if (!permissions.has("CONNECT"))return sendError("I cannot connect to your voice channel, make sure I have the proper permissions!", message.channel);
-    if (!permissions.has("SPEAK"))return sendError("I cannot speak in this voice channel, make sure I have the proper permissions!", message.channel);
+    if (!permissions.has("CONNECT"))return sendError("Please give me permissions to play music.", message.channel);
+    if (!permissions.has("SPEAK"))return sendError("Please give me permissions to play music.", message.channel);
 
     var searchString = args.join(" ");
-    if (!searchString)return sendError("You didn't poivide want i want to play", message.channel);
+    if (!searchString)return sendError("Nothing To Play", message.channel);
 
     var serverQueue = message.client.queue.get(message.guild.id);
 
     var searched = await yts.search(searchString)
-    if(searched.videos.length === 0)return sendError("Looks like i was unable to find the song on YouTube", message.channel)
+    if(searched.videos.length === 0)return sendError("Couldn't find song.", message.channel)
     var songInfo = searched.videos[0]
 
     const song = {
@@ -65,7 +65,7 @@ module.exports = {
     const play = async (song) => {
       const queue = message.client.queue.get(message.guild.id);
       if (!song) {
-        sendError("Song Finished", message.channel)
+        sendError("Song Completed", message.channel)
         queue.voiceChannel.leave();//If you want your bot stay in vc 24/7 remove this line :D
         message.client.queue.delete(message.guild.id);
         return;
