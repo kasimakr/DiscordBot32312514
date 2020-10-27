@@ -23,12 +23,16 @@ module.exports = {
         .setColor("BLUE")
         .setDescription(`**Music**
 ${allcmds}
-**Moderation"Not Done"**
-${"`Kick`"} → Kicks the dude (NOT DONE MY GUY)
-${"`Ping`"} → Checks latency between replies. (NOT DONE MY GUY)
+**Moderation**
+${"`Kick`"} → (Not Done)
+${"`Warn`"} → Warns a user.
+
+**Etcetera**
+${"`Purge`"} → Purges messages in a specfic channel.
+${"`Ping`"} → Checks latency between replies.
 
 `)
-        .setFooter("Version: 1.0.25")
+        .setFooter("Version: 1.0.75")
 
         if(!args[0])return message.channel.send(embed)
         else {
